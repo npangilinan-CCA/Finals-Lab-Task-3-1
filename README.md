@@ -30,7 +30,7 @@ This portfolio is a demonstration of applying MySQL clauses to solve common data
 
 ## Table Structures and Query Statements
 ### Task 1
-![QT1](https://github.com/user-attachments/assets/f74da6c0-b283-4a7c-8f8b-50821e18c79d)
+![QT1](https://github.com/user-attachments/assets/a9a0d529-6d6d-4e96-9995-45feeac7a11e)
 
 ### Task 2
 ![QT2](https://github.com/user-attachments/assets/78cd984f-0b47-4646-8ff8-2cdec6d6c6e0)
