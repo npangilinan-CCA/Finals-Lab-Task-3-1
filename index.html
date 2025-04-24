@@ -66,17 +66,14 @@
             text-align: center;
             margin-bottom: 3rem;
             padding: 2rem;
-            perspective: 1000px;
         }
 
-        .main-title, .subtitle {
+        .main-title {
+            position: relative;
+            display: inline-block;
             font-family: 'UnifrakturCook', cursive;
-            text-align: center;
-            background: linear-gradient(45deg, 
-                var(--cross-green), var(--cross-yellow), var(--cross-red),
-                var(--cross-blue), var(--cross-pink)
-            ) !important;
-            background-size: 300% 300% !important;
+            font-size: 3rem !important;
+            background: linear-gradient(45deg, #c0c0c0, #ffffff, #808080) !important;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
@@ -84,22 +81,75 @@
             padding: 1rem !important;
             margin: 0 !important;
             cursor: pointer;
-            position: relative;
-            animation: colorShift 10s infinite;
+        }
+
+        .main-title::before,
+        .main-title::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #FFB6C1, #4169E1, #FFD700, #FF0000, #00FF00,
+                transparent
+            );
+            transition: width 0.5s ease;
+        }
+
+        .main-title::before {
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .main-title::after {
+            right: 50%;
+            bottom: 0;
+            transform: translateX(50%);
+        }
+
+        .title-container:hover .main-title::before,
+        .title-container:hover .main-title::after {
+            width: 100%;
+        }
+
+        .title-container:hover .main-title {
             text-shadow: 
-                0 0 10px rgba(255,255,255,0.2),
-                0 0 20px rgba(255,255,255,0.1),
-                0 0 30px rgba(255,255,255,0.1);
-        }
-
-        .main-title {
-            font-size: 3.5rem;
+                0 0 10px rgba(255, 255, 255, 0.5),
+                0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 30px rgba(255, 255, 255, 0.1);
             letter-spacing: 2px;
+            transform: scale(1.05);
         }
 
-        .subtitle {
-            font-size: 2rem;
-            margin-top: 1rem;
+        .title-container::before,
+        .title-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 2px;
+            height: 0;
+            background: linear-gradient(to bottom,
+                transparent,
+                var(--chrome-silver),
+                transparent
+            );
+            transition: height 0.3s ease;
+        }
+
+        .title-container::before {
+            left: 0;
+        }
+
+        .title-container::after {
+            right: 0;
+        }
+
+        .title-container:hover::before,
+        .title-container:hover::after {
+            height: 80%;
+            transform: translateY(-50%);
         }
 
         /* Enhanced Loading Screen */
@@ -394,7 +444,7 @@
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-content">
-            <div class="loading-logo">Loading</div>
+            <div class="loading-logo">Finals Lab Task 3-1</div>
             <div class="loading-cross">♱</div>
             <div class="loading-bar-container">
                 <div class="loading-bar"></div>
@@ -405,8 +455,7 @@
 
     <div class="container">
         <div class="title-container">
-            <div class="main-title">Finals Lab Task 3-1</div>
-            <div class="subtitle">Using MYSQL Clause</div>
+            <div class="main-title">Finals Lab Task 3-1 - Using MYSQL Clause</div>
         </div>
 
         <div class="section">
@@ -511,36 +560,20 @@
             }, 2000);
         });
 
-        // Enhanced title interaction with color shift
-        document.querySelector('.title-container').addEventListener('mousemove', (e) => {
-            const title = document.querySelector('.main-title');
-            const subtitle = document.querySelector('.subtitle');
-            const rect = e.currentTarget.getBoundingClientRect();
+         // Title interaction effect
+        document.querySelector('.main-title').addEventListener('mousemove', (e) => {
+            const title = e.target;
+            const rect = title.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const angleX = (y - centerY) / 20;
-            const angleY = (centerX - x) / 20;
+            const angleX = (y - centerY) / 10;
+            const angleY = (centerX - x) / 10;
             
-            const hueRotate = ((x / rect.width) * 360);
-            
-            title.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.1)`;
-            subtitle.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
-            
-            title.style.filter = `hue-rotate(${hueRotate}deg) brightness(1.2)`;
-            subtitle.style.filter = `hue-rotate(${hueRotate}deg) brightness(1.2)`;
-        });
-
-        document.querySelector('.title-container').addEventListener('mouseleave', () => {
-            const title = document.querySelector('.main-title');
-            const subtitle = document.querySelector('.subtitle');
-            title.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-            subtitle.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-            title.style.filter = '';
-            subtitle.style.filter = '';
+            title.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
         });
 
         // Add interactive color effect to list items
